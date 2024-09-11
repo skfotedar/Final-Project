@@ -11,17 +11,18 @@ image_path = [  'GL_vel_mosaic_Annual_01Dec14_30Nov15_browse_v05.0.jpg',
                 'GL_vel_mosaic_Annual_01Dec15_30Nov16_browse_v05.0.jpg',
                 'GL_vel_mosaic_Annual_01Dec16_30Nov17_browse_v05.0.jpg',
                 'GL_vel_mosaic_Annual_01Dec17_30Nov18_browse_v05.0.jpg',
-                'GL_vel_mosaic_Annual_01Dec18_30Nov19_browse_v05.0.jpg']
-                
+                'GL_vel_mosaic_Annual_01Dec18_30Nov19_browse_v05.0.jpg',
+                'GL_vel_mosaic_Annual_01Dec19_30Nov20_browse_v05.0.jpg',
+                'GL_vel_mosaic_Annual_01Dec20_30Nov21_browse_v05.0.jpg']
 
-#re-size images
 resized_images = []
+#reduce to 10% of the original size
 for path in image_path:
     img = load_img(path)
-    img = img.resize((800,800))
+    img = img.resize((303, 548))
     resized_images.append(img)
 
-# load the cropped images
+# load the resized images
 images = []
 for path in resized_images:
     img = path
@@ -34,16 +35,17 @@ y = np.expand_dims(images[-1], axis=0)  # The last image as the target
 
 #create the model
 model = Sequential()
-model.add(TimeDistributed(Conv2D(32, (3, 3), activation='relu'), input_shape=(None, 800, 800, 3)))
+model.add(TimeDistributed(Conv2D(32, (3, 3), activation='relu'), input_shape=(None, 548, 303, 3)))
 model.add(TimeDistributed(MaxPooling2D((2, 2))))
 model.add(TimeDistributed(Conv2D(64, (3, 3), activation='relu')))
 model.add(TimeDistributed(MaxPooling2D((2, 2))))
 model.add(TimeDistributed(Flatten()))
 model.add(LSTM(50, activation='relu'))
-model.add(Dense(800 * 800 * 3, activation='sigmoid'))
-model.add(tf.keras.layers.Reshape((800, 800, 3)))
+model.add(Dense(303 * 548 * 3, activation='sigmoid'))
+model.add(tf.keras.layers.Reshape((548, 303, 3)))
 
 model.compile(optimizer='adam', loss='mse')
+
 
 model.fit(X, y, epochs=10, verbose=1)
 
