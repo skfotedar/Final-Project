@@ -22,7 +22,7 @@ for path in image_path:
     img = img.resize((303, 548))
     resized_images.append(img)
 
-# load the resized images
+# load the resized images and normalize
 images = []
 for path in resized_images:
     img = path
@@ -43,6 +43,7 @@ model.add(TimeDistributed(Flatten()))
 model.add(LSTM(50, activation='relu'))
 model.add(Dense(303 * 548 * 3, activation='sigmoid'))
 model.add(tf.keras.layers.Reshape((548, 303, 3)))
+print(model.summary())
 
 model.compile(optimizer='adam', loss='mse')
 
