@@ -6,7 +6,7 @@ from tensorflow.keras.preprocessing.image import img_to_array, load_img
 import matplotlib.pyplot as plt
 from PIL import Image
 
-# load images
+# list of images
 image_path = ['N_197901_anom_hires_v3.0.png', 'N_198001_anom_hires_v3.0.png',
             'N_198101_anom_hires_v3.0.png', 'N_198201_anom_hires_v3.0.png',
             'N_198301_anom_hires_v3.0.png']
@@ -27,7 +27,7 @@ for path in image_path:
     cropped_img = img.crop((left, top, right, bottom))
     cropped_images.append(cropped_img)
 
-# load the images
+# load the cropped images
 images = []
 for path in cropped_images:
     img = path
