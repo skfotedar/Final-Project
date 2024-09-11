@@ -19,6 +19,7 @@ the script consumed too much RAM, even for Google Colab<br>
 3/ I created a 4 layer Time Distributed Neural Network using TensorFlow. I tried doing this with PyTorch but the RAM consumption
 was too much<br>
 4/ I ran the model with 10 epochs and generated a predicted image<br>
+5/ The preicted image is "predicted image.jpg"
 5/ The model loss was 0.005
 
 The python file that contains this code is "tensor flow predicion greenland.py"<br><br>
